@@ -6,11 +6,10 @@ import (
 )
 
 func main() {
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
-	logger.Info("Info Message", slog.String("追加メッセージ", "Infoレベルのメッセージです"))
-	logger.Info("Info Message", "追加メッセージ", "Infoレベルのメッセージです")
-	// {"time":"2024-12-02T22:17:38.192361+09:00","level":"INFO","msg":"Info Message","追加メッセージ":"Infoレベルのメッセージです"}
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil)).With(slog.String("メッセージ", "共通ログ"))
 
-	logger.Info("Info Message", "追加メッセージ")
-	// {"time":"2024-12-02T22:18:28.502302+09:00","level":"INFO","msg":"Info Message","!BADKEY":"追加メッセージ"}
+	logger.Info("Info Message")
+	// {"time":"2024-12-02T22:39:06.791661+09:00","level":"INFO","msg":"Info Message","メッセージ":"共通ログ"}
+	logger.Error("Error Message")
+	// {"time":"2024-12-02T22:39:06.792175+09:00","level":"ERROR","msg":"Error Message","メッセージ":"共通ログ"}
 }
